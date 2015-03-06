@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PrintDebug extends Command {
 
-	private boolean run = false;
+	boolean run = false;
     public PrintDebug() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -25,6 +25,7 @@ public class PrintDebug extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	outputDebug();
+    	run = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,7 +35,6 @@ public class PrintDebug extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	run = false;
     }
 
     // Called when another command which requires one or more of the same
@@ -48,8 +48,11 @@ public class PrintDebug extends Command {
     	System.out.println("S2/Limite interne: " + Robot.forks.narrowLimit.get());
     	System.out.println("S3/Limite haut: " + Robot.lift.haut.get());
     	System.out.println("S4/limit bas: " + Robot.lift.bas.get());
-    	System.out.println("Encodeur fourche: " + Robot.forks.encoder.getRaw());
-    	System.out.println("Encodeur lift: " + Robot.lift.encoder.getRaw());
+    	System.out.println("Encodeur fourches: " + Robot.forks.getEncoderRaw());
+    	System.out.println("Fourches distance: " + Robot.forks.getDistance());
+    	System.out.println("Encodeur lift: " + Robot.lift.getEncoderRaw());
+    	System.out.println("Lift distance: " + Robot.lift.getDistance());
     	System.out.println("---------------Debug-----------------");
+    	
     }
 }

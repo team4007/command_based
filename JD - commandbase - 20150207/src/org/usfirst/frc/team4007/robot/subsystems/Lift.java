@@ -18,13 +18,15 @@ public class Lift extends Subsystem {
     private Talon motor;
     
     private double raisingSpeed = -1.0;
-    private double loweringSpeed = 1.0;
+    private double loweringSpeed = .75;
 	public Encoder encoder;
 	//1 pied = 1700
     public DigitalInput haut;
     public DigitalInput bas;           
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+    private double groundOffset = 5.125; // Distance des fourches du sol
 
     public Lift() {
 		super();
@@ -35,13 +37,13 @@ public class Lift extends Subsystem {
 
 
 		
-		encoder = new Encoder(7,8,true, EncodingType.k4X);
+		encoder = new Encoder(7,8,true, EncodingType.k2X);
 		// Configuration
-		encoder.setMaxPeriod(0.1);
-		encoder.setMinRate(10);
-		encoder.setDistancePerPulse(5);
-		encoder.setReverseDirection(true);
-  		   		
+		//encoder.setMaxPeriod(0.1);
+		encoder.setMinRate(.15);
+		//encoder.setDistancePerPulse(0.088889); // Sur bon robot
+		encoder.setDistancePerPulse(0.0779); // Sur junior
+		
   		// Demarrage
 		encoder.reset();
 		
@@ -64,8 +66,24 @@ public class Lift extends Subsystem {
 	}
 	
 	public int getEncoderRaw() {
+		if (bas.get()) {
+			encoder.reset();
+		}		
 		return encoder.getRaw();
 	}
+	
+	/**
+	 * Retourne la distance du lift par rapport au sol.
+	 * @return Distance en pouce
+	 */
+	public double getDistance() {
+		double distance = groundOffset;
+		
+		distance = isAtBottom() ? groundOffset : encoder.getDistance() + groundOffset;
+		
+		return distance;
+	}
+	
 	
 	public void stop() {
 		// On utilise des moteurs de vitre et pour les bloquer
@@ -79,6 +97,9 @@ public class Lift extends Subsystem {
 	}
 	
 	public boolean isAtBottom(){
+		if (bas.get()) {
+			encoder.reset();
+		}
 		return bas.get();
 	}
 }

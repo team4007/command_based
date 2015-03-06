@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4007.robot.subsystems;
 
 import org.usfirst.frc.team4007.robot.Robot;
+import org.usfirst.frc.team4007.robot.RobotMap;
 import org.usfirst.frc.team4007.robot.commands.DriveWithJoystick;
 
 import edu.wpi.first.wpilibj.Jaguar;
@@ -22,10 +23,10 @@ public class DriveTrain extends Subsystem {
 	//private RobotDrive drive;
     
     public DriveTrain() {
-      	frontLeft = new Jaguar(4);
-    	frontRight = new Jaguar(1);
-    	rearLeft = new Jaguar(3);
-    	rearRight = new Jaguar(2);
+      	frontLeft = new Jaguar(RobotMap.PWMfrontLeft);
+    	frontRight = new Jaguar(RobotMap.PWMfrontRight);
+    	rearLeft = new Jaguar(RobotMap.PWMrearLeft);
+    	rearRight = new Jaguar(RobotMap.PWMrearRight);
     	
     	/*
     	drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
@@ -37,8 +38,7 @@ public class DriveTrain extends Subsystem {
 		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 		drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
 		drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
-    	*/
-    	
+    	*/  	
     	
     	
     }
@@ -53,18 +53,37 @@ public class DriveTrain extends Subsystem {
     	double RightX = 0.0;
     	double RightY = 0.0;
     	
-		LeftX = joystick.getRawAxis(0)/2;
+    	double flValue, frValue, rlValue, rrValue;
+  
+		LeftX = joystick.getRawAxis(0);
+		LeftY = joystick.getRawAxis(1);
+		
+		RightX = joystick.getRawAxis(4);
+		RightY = joystick.getRawAxis(5);
+
+		
+/*		LeftX = joystick.getRawAxis(0)/2;
 		LeftY = joystick.getRawAxis(1)/2;
 		
 		RightX = joystick.getRawAxis(4)/2;
 		RightY = joystick.getRawAxis(5)/2;
+	*/	
 		
+		flValue = -LeftY + RightX + LeftX;
+		frValue = -(-LeftY - RightX - LeftX);
 		
-		frontLeft.set(-LeftY + RightX + LeftX);
-		frontRight.set(-(-LeftY - RightX - LeftX));
+		rlValue = -LeftY + RightX - LeftX;
+		rrValue = -(-LeftY - RightX + LeftX);
 		
-		rearLeft.set(-LeftY + RightX - LeftX);
-		rearRight.set(-(-LeftY - RightX + LeftX));
+		flValue = Math.abs(flValue) < 0.3 ? 0 : flValue;
+		frValue = Math.abs(frValue) < 0.3 ? 0 : frValue;
+		rlValue = Math.abs(rlValue) < 0.3 ? 0 : rlValue;
+		rrValue = Math.abs(rrValue) < 0.3 ? 0 : rrValue;
+		
+		frontLeft.set(flValue);
+		frontRight.set(frValue);		
+		rearLeft.set(rlValue);
+		rearRight.set(rrValue);
 		
 //		frontLeft.set(.25);
 //		frontRight.set(-.25);
