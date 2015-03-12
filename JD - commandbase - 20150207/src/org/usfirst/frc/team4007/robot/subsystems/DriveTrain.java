@@ -1,12 +1,10 @@
 package org.usfirst.frc.team4007.robot.subsystems;
 
-import org.usfirst.frc.team4007.robot.Robot;
 import org.usfirst.frc.team4007.robot.RobotMap;
 import org.usfirst.frc.team4007.robot.commands.DriveWithJoystick;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

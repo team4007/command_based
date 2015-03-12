@@ -15,6 +15,17 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  */
 public class Lift extends Subsystem {
+	/**
+	 * CONSTANTES DE HAUTEUR
+	 */
+	
+	public static final float TOTE_PICKUP = 10;
+	public static final float TOTE_MOVE = 15;
+	public static final float TOTE_LIFT_OVER = 24;
+	public static final float TOTE_DROP_OVER = 18;
+	public static final float TOTE_DROP_GROUND = 10;
+	
+	
     private Talon motor;
     
     private double raisingSpeed = -1.0;

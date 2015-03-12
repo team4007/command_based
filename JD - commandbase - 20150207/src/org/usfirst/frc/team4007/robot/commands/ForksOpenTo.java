@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4007.robot.commands;
 
 import org.usfirst.frc.team4007.robot.Robot;
+import org.usfirst.frc.team4007.robot.subsystems.Forks;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,6 +20,24 @@ public class ForksOpenTo extends Command {
         requires(Robot.forks);
         
         goal = width;
+    }
+    
+    public ForksOpenTo(Forks.mode m){
+    	requires(Robot.forks);
+    	
+    	switch (m) {
+    	case NARROW:
+    		goal = 18;
+    		break;
+    	case WIDE:
+    		goal = 27;
+    		break;
+    	case CAN:
+    		goal = 20;
+    		break;
+    	}
+    	
+    	System.out.println("FORKS OPENING TO " + goal);
     }
 
     // Called just before this Command runs the first time

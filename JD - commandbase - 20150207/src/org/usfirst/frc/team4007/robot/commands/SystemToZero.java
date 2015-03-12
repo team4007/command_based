@@ -11,7 +11,7 @@ public class SystemToZero extends CommandGroup {
     	addParallel(new CloseForks());
     	
     	// TODO : Dans le robot final s'assurer d'activer cette ligne
-    	//addSequential(new LowerLift());
+    	addSequential(new LowerLift());
     	
     	
     	

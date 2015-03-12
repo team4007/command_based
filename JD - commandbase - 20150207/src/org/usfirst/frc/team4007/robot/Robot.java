@@ -83,6 +83,24 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         encoderLift = Robot.lift.encoder.getRaw();
+        
+        int dpad = oi.joystick.getPOV();
+        
+        switch (dpad) {
+        	case 0:
+        		Forks.setMode(Forks.mode.CAN);
+        		System.out.println("FORKS SET TO CAN MODE");
+        		break;
+        	case 90:
+        		Forks.setMode(Forks.mode.WIDE);
+        		System.out.println("FORKS SET TO WIDE MODE");
+        		break;
+        	case 270:
+        		Forks.setMode(Forks.mode.NARROW);
+        		System.out.println("FORKS SET TO NARROW MODE");
+        		break;
+        }
+        
     }
     
     /**

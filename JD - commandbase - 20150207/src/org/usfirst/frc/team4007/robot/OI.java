@@ -1,22 +1,23 @@
 package org.usfirst.frc.team4007.robot;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4007.robot.commands.CloseForks;
 import org.usfirst.frc.team4007.robot.commands.ForksOpenTo;
-import org.usfirst.frc.team4007.robot.commands.LiftGoto;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
 import org.usfirst.frc.team4007.robot.commands.LowerLift;
 import org.usfirst.frc.team4007.robot.commands.OpenForks;
 import org.usfirst.frc.team4007.robot.commands.RaiseLift;
 import org.usfirst.frc.team4007.robot.commands.ResetEncoder;
+import org.usfirst.frc.team4007.robot.commands.SetLiftHeight;
 import org.usfirst.frc.team4007.robot.commands.StopForks;
 import org.usfirst.frc.team4007.robot.commands.StopLift;
+import org.usfirst.frc.team4007.robot.subsystems.Forks;
+import org.usfirst.frc.team4007.robot.subsystems.Lift;
 import org.usfirst.frc.team4007.robot.triggers.DoubleButton;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,8 +25,7 @@ import org.usfirst.frc.team4007.robot.triggers.DoubleButton;
  */
 public class OI {
 	public Joystick joystick;
-	
-
+	//SmartDashboard db = new SmartDashboard();
 	
 	public OI() {
 		joystick = new Joystick(0);
@@ -59,6 +59,10 @@ public class OI {
 		
 		jbSTART.whenActive(new PrintDebug());
 		jbBACK.whenActive(new ForksOpenTo(18));
+		
+		jbRS.whenActive(new SetLiftHeight(Lift.TOTE_PICKUP));
+		
+		//jbY.whenActive(new OpenForksAuto());
 		
 	}
     

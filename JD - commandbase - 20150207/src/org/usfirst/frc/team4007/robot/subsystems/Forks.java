@@ -1,11 +1,9 @@
 package org.usfirst.frc.team4007.robot.subsystems;
 
-import org.usfirst.frc.team4007.robot.Robot;
 import org.usfirst.frc.team4007.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,12 +12,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Forks extends Subsystem {
-    private Talon motor;
+    public enum mode{NARROW, WIDE, CAN};
+	private Talon motor;
     
     public DigitalInput narrowLimit;
     public DigitalInput wideLimit;
 	public Encoder encoder;
-
+	
+	public static mode widthMode = mode.NARROW;
+	
     private double closingSpeed = 0.75;
     private double openingSpeed = -0.75;
     
@@ -94,5 +95,14 @@ public class Forks extends Subsystem {
     public boolean isAtWideLimit() {
     	return wideLimit.get();
     }
+    
+    public static void setMode(mode m){
+    	widthMode = m;
+    }
+    
+    public static mode getMode(){
+    	return widthMode;
+    }
+    
 }
 
