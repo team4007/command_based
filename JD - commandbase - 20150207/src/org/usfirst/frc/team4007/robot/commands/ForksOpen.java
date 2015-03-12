@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4007.robot.commands.forks;
+package org.usfirst.frc.team4007.robot.commands;
 
 import org.usfirst.frc.team4007.robot.Robot;
 
