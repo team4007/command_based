@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4007.robot.commands.CloseForks;
-import org.usfirst.frc.team4007.robot.commands.ForksOpenTo;
+import org.usfirst.frc.team4007.robot.commands.SetForksWidth;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
 import org.usfirst.frc.team4007.robot.commands.LowerLift;
 import org.usfirst.frc.team4007.robot.commands.OpenForks;
@@ -58,11 +58,10 @@ public class OI {
 		jbRB.whenInactive(new StopForks());		
 		
 		jbSTART.whenActive(new PrintDebug());
-		jbBACK.whenActive(new ForksOpenTo(18));
+		jbBACK.whenActive(new SetForksWidth(18));
 		
 		jbRS.whenActive(new SetLiftHeight(Lift.TOTE_PICKUP));
 		
-		//jbY.whenActive(new OpenForksAuto());
 		
 	}
     

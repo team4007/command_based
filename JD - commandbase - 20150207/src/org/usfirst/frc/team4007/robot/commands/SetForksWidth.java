@@ -8,21 +8,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ForksOpenTo extends Command {
+public class SetForksWidth extends Command {
 	
 	double current;
 	double goal;
 	double error;
 	double seuil = 0.05;
+	
+	double previousGoal;
 
-    public ForksOpenTo(double width) {
+    public SetForksWidth(double width) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.forks);
         
         goal = width;
     }
     
-    public ForksOpenTo(Forks.mode m){
+    public SetForksWidth(Forks.mode m){
     	requires(Robot.forks);
     	
     	switch (m) {
@@ -76,4 +78,5 @@ public class ForksOpenTo extends Command {
     protected void interrupted() {
     	end();
     }
+    
 }
