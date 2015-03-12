@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CloseForks extends Command {
+public class ForksClose extends Command {
 
 
-    public CloseForks() {
+    public ForksClose() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.forks);
@@ -38,5 +38,6 @@ public class CloseForks extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

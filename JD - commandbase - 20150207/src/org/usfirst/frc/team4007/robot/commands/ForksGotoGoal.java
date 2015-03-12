@@ -6,9 +6,9 @@ import org.usfirst.frc.team4007.robot.subsystems.Forks;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Redimensionne la fourche a la bonne dimension
  */
-public class SetForksWidth extends Command {
+public class ForksGotoGoal extends Command {
 	
 	double current;
 	double goal;
@@ -17,29 +17,18 @@ public class SetForksWidth extends Command {
 	
 	double previousGoal;
 
-    public SetForksWidth(double width) {
+    public ForksGotoGoal(double width) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.forks);
         
         goal = width;
+        System.out.println("NEW GotoGoal(" + goal + ")");
     }
     
-    public SetForksWidth(Forks.mode m){
+    public ForksGotoGoal() {
     	requires(Robot.forks);
     	
-    	switch (m) {
-    	case NARROW:
-    		goal = 18;
-    		break;
-    	case WIDE:
-    		goal = 27;
-    		break;
-    	case CAN:
-    		goal = 20;
-    		break;
-    	}
-    	
-    	System.out.println("FORKS OPENING TO " + goal);
+    	goal = 0;
     }
 
     // Called just before this Command runs the first time
@@ -60,12 +49,14 @@ public class SetForksWidth extends Command {
     		// Trop etroit
     		Robot.forks.open();
     	}
+    	
+    	//System.out.println("FORKS IS " + error + " TO GOAL");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//System.out.println("Erreur = " + error);
-        return Math.abs(error) < seuil;
+        return Math.abs(error) < seuil || goal == 0;
     }
 
     // Called once after isFinished returns true
@@ -78,5 +69,11 @@ public class SetForksWidth extends Command {
     protected void interrupted() {
     	end();
     }
+    
+    public void to(double goal) {
+    	this.goal = goal;
+    	System.out.println("FORKS GOAL SET TO " + this.goal);
+    }
+    
     
 }

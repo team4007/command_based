@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Forks extends Subsystem {
-    public enum mode{NARROW, WIDE, CAN};
+    public enum OpeningMode{NARROW, WIDE, CAN};
 	private Talon motor;
     
     public DigitalInput narrowLimit;
     public DigitalInput wideLimit;
 	public Encoder encoder;
 	
-	public static mode widthMode = mode.NARROW;
+	public static OpeningMode widthMode = OpeningMode.NARROW;
 	
     private double closingSpeed = 0.75;
     private double openingSpeed = -0.75;
@@ -96,11 +96,11 @@ public class Forks extends Subsystem {
     	return wideLimit.get();
     }
     
-    public static void setMode(mode m){
+    public static void setMode(OpeningMode m){
     	widthMode = m;
     }
     
-    public static mode getMode(){
+    public static OpeningMode getMode(){
     	return widthMode;
     }
     
