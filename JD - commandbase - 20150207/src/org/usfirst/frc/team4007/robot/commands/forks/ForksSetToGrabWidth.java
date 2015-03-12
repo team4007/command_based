@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4007.robot.commands;
+package org.usfirst.frc.team4007.robot.commands.forks;
 
 import org.usfirst.frc.team4007.robot.Robot;
 import org.usfirst.frc.team4007.robot.subsystems.Forks;
@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Commande qui indique la largeur de la prochaine execution
  */
-public class ForksSetGrabbingWidth extends Command {
+public class ForksSetToGrabWidth extends Command {
 
 	OpeningMode om;
 	double goal = 0;
 	ForksGotoGoal cmd;
 	
-    public ForksSetGrabbingWidth(ForksGotoGoal command) {
+    public ForksSetToGrabWidth(ForksGotoGoal command) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.forks);
@@ -33,13 +33,13 @@ public class ForksSetGrabbingWidth extends Command {
     	
     	switch(om) {
     	case NARROW:
-    		goal = 18;
+    		goal = 16;
     		break;
     	case WIDE:
-    		goal = 28;
+    		goal = 26;
     		break;
     	case CAN:
-    		goal = 20;
+    		goal = 18;
     		break;
     	}
     	
