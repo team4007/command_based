@@ -3,6 +3,7 @@ package org.usfirst.frc.team4007.robot.commands;
 import org.usfirst.frc.team4007.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -53,6 +54,6 @@ public class PrintDebug extends Command {
     	System.out.println("Encodeur lift: " + Robot.lift.getEncoderRaw());
     	System.out.println("Lift distance: " + Robot.lift.getDistance());
     	System.out.println("---------------Debug-----------------");
-    	
+    	//SmartDashboard.putString("mode", "TATA");
     }
 }

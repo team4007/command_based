@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team4007.robot.commands.AutonomousCommands;
 import org.usfirst.frc.team4007.robot.commands.SystemToZero;
+import org.usfirst.frc.team4007.robot.commands.UpdateCamera;
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Forks;
 import org.usfirst.frc.team4007.robot.subsystems.Lift;
@@ -23,6 +25,7 @@ public class Robot extends IterativeRobot {
 	public static final Lift lift = new Lift();
 	public static final Forks forks = new Forks();
 	public static final DriveTrain driveTrain = new DriveTrain();
+	//public static final UpdateCamera updateCamera = new UpdateCamera();
 	public static OI oi;
 	public static int encoderLift = 0;
 
@@ -37,7 +40,8 @@ public class Robot extends IterativeRobot {
 		
 		
         // instantiate the command used for the autonomous period
-        autonomousCommand = new SystemToZero();
+        //autonomousCommand = new SystemToZero();
+		autonomousCommand = new AutonomousCommands();
     }
 	
 	public void disabledPeriodic() {
@@ -66,6 +70,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
+        //updateCamera.start();
         
     }
 
@@ -83,7 +88,6 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         encoderLift = Robot.lift.encoder.getRaw();
-
     }
     
     /**

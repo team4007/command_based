@@ -33,13 +33,13 @@ public class ForksSetToGrabWidth extends Command {
     	
     	switch(om) {
     	case NARROW:
-    		goal = 16;
+    		goal = 16.0;
     		break;
     	case WIDE:
-    		goal = 26;
+    		goal = 25.0;
     		break;
-    	case CAN:
-    		goal = 18;
+    	case GARBAGGE:
+    		goal = 19.5;
     		break;
     	}
     	

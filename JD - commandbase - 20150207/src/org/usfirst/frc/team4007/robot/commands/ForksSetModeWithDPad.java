@@ -5,22 +5,17 @@ import org.usfirst.frc.team4007.robot.subsystems.Forks;
 import org.usfirst.frc.team4007.robot.subsystems.Forks.OpeningMode;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * Commande qui indique la largeur de la prochaine execution
+ *
  */
-public class ForksSetGrabbingWidth extends Command {
+public class ForksSetModeWithDPad extends Command {
 
-	OpeningMode om;
-	double goal = 0;
-	ForksGotoGoal cmd;
-	
-    public ForksSetGrabbingWidth(ForksGotoGoal command) {
+    public ForksSetModeWithDPad() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.forks);
-    	
-    	cmd = command;
+    	requires (Robot.forks);
     }
 
     // Called just before this Command runs the first time
@@ -29,21 +24,25 @@ public class ForksSetGrabbingWidth extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	om = Forks.getMode();
-    	
-    	switch(om) {
-    	case NARROW:
-    		goal = 18;
-    		break;
-    	case WIDE:
-    		goal = 26.75;
-    		break;
-    	case GARBAGGE:
-    		goal = 21.0;
-    		break;
-    	}
-    	
-    	cmd.to(goal);
+    	int dpad = Robot.oi.joystick.getPOV();
+        
+        switch (dpad) {
+        	case 0:
+        		Forks.setMode(OpeningMode.GARBAGGE);
+        		System.out.println("FORKS SET TO CAN MODE");
+        		SmartDashboard.putString("Forks_mode", "FORKS SET TO CAN MODE");
+        		break;
+        	case 90:
+        		Forks.setMode(OpeningMode.WIDE);
+        		System.out.println("FORKS SET TO WIDE MODE");
+        		SmartDashboard.putString("Forks_mode", "FORKS SET TO WIDE MODE");
+        		break;
+        	case 270:
+        		Forks.setMode(OpeningMode.NARROW);
+        		System.out.println("FORKS SET TO NARROW MODE");
+        		SmartDashboard.putString("Forks_mode", "FORKS SET TO NARROW MODE");
+        		break;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

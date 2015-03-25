@@ -23,7 +23,7 @@ public class Lift extends Subsystem {
 	public static final float TOTE_MOVE = 15;
 	public static final float TOTE_LIFT_OVER = 24;
 	public static final float TOTE_DROP_OVER = 18;
-	public static final float TOTE_DROP_GROUND = 10;
+	public static final float TOTE_DRP_GROUND = 10;
 	
 	
     private Talon motor;
@@ -37,7 +37,7 @@ public class Lift extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
-    private double groundOffset = 5.125; // Distance des fourches du sol
+    private double groundOffset = 2.75; // Distance des fourches du sol
 
     public Lift() {
 		super();

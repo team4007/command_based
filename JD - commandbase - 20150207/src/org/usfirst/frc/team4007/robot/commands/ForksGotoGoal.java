@@ -13,7 +13,7 @@ public class ForksGotoGoal extends Command {
 	double current;
 	double goal;
 	double error;
-	double seuil = 0.05;
+	double seuil = 0.1;
 	
 	double previousGoal;
 
@@ -22,7 +22,6 @@ public class ForksGotoGoal extends Command {
         requires(Robot.forks);
         
         goal = width;
-        System.out.println("NEW GotoGoal(" + goal + ")");
     }
     
     public ForksGotoGoal() {
@@ -38,6 +37,7 @@ public class ForksGotoGoal extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	current = Robot.forks.getDistance();
     	error = goal - current;
     	
@@ -55,8 +55,15 @@ public class ForksGotoGoal extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//System.out.println("Erreur = " + error);
-        return Math.abs(error) < seuil || goal == 0;
+    	boolean limitOn = false;
+    	
+    	if (Robot.forks.isClosing())
+    		limitOn = Robot.forks.isAtNarrowLimit();
+    	
+    	if (Robot.forks.isOpening())
+    		limitOn = Robot.forks.isAtWideLimit();
+
+        return Math.abs(error) < seuil || goal == 0 || limitOn;
     }
 
     // Called once after isFinished returns true

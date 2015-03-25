@@ -15,6 +15,12 @@ public class RaiseLift extends Command {
         requires(Robot.lift);
         
     }
+    
+    public RaiseLift(double timemout) {
+    	requires(Robot.lift);
+    	
+    	setTimeout(timemout);
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -28,7 +34,7 @@ public class RaiseLift extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lift.isAtTop();
+        return Robot.lift.isAtTop() || isTimedOut();
     }
 
     // Called once after isFinished returns true
@@ -39,5 +45,6 @@ public class RaiseLift extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

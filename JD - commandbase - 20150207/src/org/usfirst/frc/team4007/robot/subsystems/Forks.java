@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Forks extends Subsystem {
-    public enum OpeningMode{NARROW, WIDE, CAN};
+    public enum OpeningMode{NARROW, WIDE, GARBAGGE};
 	private Talon motor;
     
     public DigitalInput narrowLimit;
@@ -21,12 +21,18 @@ public class Forks extends Subsystem {
 	
 	public static OpeningMode widthMode = OpeningMode.NARROW;
 	
-    private double closingSpeed = 0.75;
-    private double openingSpeed = -0.75;
+    private double closingSpeed = 1.0;
+    private double openingSpeed = -1;
     
-    private double openingOffset = 14.875;
+    private double openingOffset = 14.60;
+    private double maxOpening = 28.25;
+    
+    private boolean fromOutside = false; // Indique si la distance est calculee de l'exterieur.
+    
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    
+    // Valeur maximale de l<encodeur est environ 6625 - 6650.
     
     public Forks() {
     	super();
@@ -68,6 +74,14 @@ public class Forks extends Subsystem {
     		motor.set(closingSpeed);
     }
     
+    public boolean isClosing() {
+    	return motor.getSpeed() > 0;
+    }
+    
+    public boolean isOpening() {
+    	return motor.getSpeed() < 0;
+    }
+    
     public void stop() {
     	motor.stopMotor();
     }
@@ -77,22 +91,39 @@ public class Forks extends Subsystem {
 	 * @return Distance en pouce
 	 */
 	public double getDistance() {
-		double distance = openingOffset;
+		double distance = 0;
 		
-		distance = isAtNarrowLimit() ? openingOffset : encoder.getDistance() + openingOffset;
+		//distance = isAtNarrowLimit() ? openingOffset : encoder.getDistance() + openingOffset;
+		
+		if (isAtNarrowLimit()) {
+			distance = openingOffset;
+		} else if (isAtWideLimit()) {
+			distance = maxOpening;
+		} else if (fromOutside) {
+			distance = maxOpening + encoder.getDistance();
+			//System.out.println(distance);
+		} else
+			distance = encoder.getDistance() + openingOffset;
 		
 		return distance;
 	}
     
     
     public boolean isAtNarrowLimit() {    	
-    	if (narrowLimit.get())
+    	if (narrowLimit.get()) {
     		encoder.reset();
+    		fromOutside = false;
+    	}
     	
     	return narrowLimit.get();
     }
     
     public boolean isAtWideLimit() {
+    	if (wideLimit.get()){
+    		fromOutside = true;
+    		encoder.reset();
+    	}
+    	
     	return wideLimit.get();
     }
     
